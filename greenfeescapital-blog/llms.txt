@@ -1,0 +1,35 @@
+# Green Fees Capital ⛳
+
+> A full round of market briefs — six drops a day, straight down the fairway. Tim Ferriss voice. Direct, fun, skimmable. Not investment advice.
+
+Green Fees Capital is a daily stock-market brief with a golf theme. Six drops per weekday (the 19th Hole runs every day). Coverage: Mag 7, three Dow giants, two private giants, Capitol Hill STOCK Act disclosures (factual list only, no politics), crypto, Asia markets, futures, and jokes. Every drop ends with: "No political content. Nothing here is investment advice — just what moved and why."
+
+## Daily schedule (PST)
+
+- [The Driving Range](/#2026-04-20-range): 6:00 AM — pre-round scan, futures, what's on the card
+- [Tee Time](/#2026-04-20-tee): 6:30 AM — pre-market, Mag 7 movers, on-deck prints
+- [Front 9](/#2026-04-20-morning): 7:15 AM — opening bell drama, first 30 minutes
+- [The Back 9](/#2026-04-20-back): 11:30 AM — midday turn, sector rotation
+- [The Clubhouse](/#2026-04-20-afternoon): 1:30 PM — full day recap, Fore-Word ⛳ sports, Capitol Hill Watch
+- [The 19th Hole](/#2026-04-20-night): 9:00 PM — crypto, Asia open, US after-hours, futures peek
+
+## Editorial rules
+
+- No political content. No election takes. No Fed-as-villain rants. No partisan framing.
+- Every bullet leads with ticker or company name, then verb, then number.
+- One fact per bullet.
+- Capitol Hill Watch is a pure factual list — party-state shown only because it's part of the public disclosure record.
+- Not investment advice.
+
+## Data sources
+
+- Stocks: Yahoo Finance, CNBC Markets, Reuters, MarketWatch
+- Private: TechCrunch, Axios Pro Rata, Bloomberg Tech
+- Crypto: CoinDesk, The Block, CoinGecko
+- Asia: CNBC Asia, Reuters Asia, Nikkei Asia
+- Congressional trades: Capitol Trades, Quiver Quantitative
+- Sports: ESPN
+
+## Contact
+
+Editorial and sponsorship inquiries: see site footer.

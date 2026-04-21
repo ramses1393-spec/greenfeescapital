@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Green Fees Capital ⛳ — market briefs, six drops a day</title>
+<meta name="description" content="Green Fees Capital — a full round of market briefs, six drops a day. Mag 7, Dow giants, private mavericks, crypto, Capitol Hill. Direct, fun, skimmable." />
+
+<!-- ── SEO + Social ─────────────────────────────────────────── -->
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/favicon.png" />
+<link rel="canonical" href="https://greenfeescapital.com/" />
+
+<!-- OpenGraph (Facebook, LinkedIn, iMessage, Slack) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Green Fees Capital" />
+<meta property="og:title" content="Green Fees Capital ⛳ — market briefs, six drops a day" />
+<meta property="og:description" content="A full round of market briefs — six drops a day, straight down the fairway. Mag 7, Dow, private giants, crypto, Capitol Hill." />
+<meta property="og:image" content="/assets/hero-og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content="https://greenfeescapital.com/" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Green Fees Capital ⛳" />
+<meta name="twitter:description" content="A full round of market briefs — six drops a day, straight down the fairway." />
+<meta name="twitter:image" content="/assets/hero-og.png" />
+
+<!-- JSON-LD: WebSite + Organization (helps Google + AI Overviews) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://greenfeescapital.com/#website",
+      "url": "https://greenfeescapital.com/",
+      "name": "Green Fees Capital",
+      "description": "A full round of market briefs — six drops a day, straight down the fairway.",
+      "publisher": { "@id": "https://greenfeescapital.com/#org" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://greenfeescapital.com/#org",
+      "name": "Green Fees Capital",
+      "url": "https://greenfeescapital.com/",
+      "logo": "https://greenfeescapital.com/assets/favicon.png",
+      "description": "Market briefs in the voice of a trader who plays golf. Six drops a day. Direct, fun, skimmable. Not investment advice."
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --bg: #faf8f4;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --rule: #e5e0d6;
+    --accent: #c2410c;
+    --chip: #111827;
+    --chip-ink: #f9fafb;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: "Iowan Old Style", "Charter", Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 120px; }
+  header.masthead {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 32px;
+    margin-bottom: 44px;
+  }
+  header.masthead .hero-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 28px;
+    border-radius: 6px;
+    background: #f1ede2;
+    aspect-ratio: 1600 / 500;
+    object-fit: cover;
+  }
+  header.masthead .hero-img[data-pending="true"] {
+    background: repeating-linear-gradient(45deg, #f1ede2, #f1ede2 10px, #ece7d8 10px, #ece7d8 20px);
+  }
+  header.masthead h1 {
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+    font-weight: 800;
+  }
+  header.masthead .tag { color: var(--muted); font-style: italic; font-size: 19px; line-height: 1.5; }
+  nav.meta {
+    margin-top: 22px;
+    font-size: 16px;
+    color: var(--muted);
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    letter-spacing: 0.02em;
+  }
+  nav.meta strong { color: var(--ink); }
+  nav.meta a { color: var(--accent); text-decoration: none; }
+  nav.meta a:hover { text-decoration: underline; }
+
+  article.post {
+    padding: 28px 0 36px;
+    border-bottom: 1px solid var(--rule);
+  }
+  article.post:last-of-type { border-bottom: none; }
+  article.post .kicker {
+    display: inline-block;
+    background: var(--chip);
+    color: var(--chip-ink);
+    padding: 10px 20px;
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  article.post h2 {
+    font-size: 38px;
+    line-height: 1.15;
+    margin: 0 0 6px;
+    letter-spacing: -0.015em;
+    font-weight: 800;
+  }
+  article.post .dateline {
+    color: var(--muted);
+    font-size: 15px;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+  article.post h3 {
+    font-size: 20px;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin: 32px 0 12px;
+    font-weight: 700;
+  }
+  article.post p { margin: 0 0 14px; }
+  article.post ul { margin: 0 0 14px; padding-left: 20px; }
+  article.post li { margin-bottom: 6px; }
+  article.post .joke {
+    background: #fff8ea;
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    font-style: italic;
+    margin: 8px 0 14px;
+  }
+  article.post .sports {
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    font-weight: 600;
+  }
+  article.post .sources {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 28px;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+  }
+  article.post .sources a { color: var(--muted); }
+  article.post .disclaimer {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--rule);
+  }
+  footer.site {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--muted);
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    text-align: center;
+  }
+  code, .ticker {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    background: #f1ede2;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  /* ── Monetization slots (HIDDEN by default) ───────────────────────────
+     To turn on, remove `monetize-off` from <body>. Slots then render.
+  ─────────────────────────────────────────────────────────────────── */
+  body.monetize-off .ad-slot,
+  body.monetize-off .affiliate-row,
+  body.monetize-off .sponsor-strip { display: none !important; }
+
+  .ad-slot {
+    margin: 24px 0;
+    padding: 14px 16px;
+    background: #fffdf6;
+    border: 1px dashed var(--rule);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    text-align: center;
+  }
+  .ad-slot .label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .sponsor-strip {
+    margin: 0 0 24px;
+    padding: 10px 14px;
+    background: #111827;
+    color: #f9fafb;
+    border-radius: 4px;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    text-align: center;
+  }
+  .sponsor-strip .label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-right: 8px;
+  }
+  .sponsor-strip a { color: #fbbf24; text-decoration: none; font-weight: 600; }
+  .affiliate-row {
+    margin-top: 40px;
+    padding: 18px 16px;
+    background: #f4f0e6;
+    border-radius: 6px;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .affiliate-row .label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .affiliate-row ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+  }
+  .affiliate-row a { color: var(--accent); text-decoration: none; }
+  .affiliate-row a:hover { text-decoration: underline; }
+</style>
+</head>
+<body class="monetize-off">
+<div class="wrap">
+
+  <!-- ── SPONSOR STRIP (hidden until monetization is switched on) ── -->
+  <div class="sponsor-strip">
+    <span class="label">Presented by</span>
+    <a href="#">Your sponsor here — reserved slot</a>
+  </div>
+
+  <header class="masthead">
+    <img class="hero-img" src="assets/hero.png" alt="Green Fees Capital — 18th green hero illustration with market ticker ribbon" data-pending="true" onload="this.removeAttribute('data-pending')" onerror="this.style.display='none'" />
+    <h1>Green Fees Capital ⛳</h1>
+    <div class="tag">A full round of market briefs — six drops a day, straight down the fairway.</div>
+    <nav class="meta" style="line-height:1.9;">
+      <strong>6:00 AM</strong> Driving Range &nbsp;·&nbsp;
+      <strong>6:30 AM</strong> Tee Time &nbsp;·&nbsp;
+      <strong>7:15 AM</strong> Front 9 &nbsp;·&nbsp;
+      <strong>11:30 AM</strong> Back 9 &nbsp;·&nbsp;
+      <strong>1:30 PM</strong> Clubhouse &nbsp;·&nbsp;
+      <strong>9:00 PM</strong> The 19th Hole <br>
+      <em style="color:var(--muted);">(PST · weekdays on-course; 19th Hole every day)</em>
+    </nav>
+  </header>
+
+  <!-- ── MID-FEED AD SLOT (hidden until monetization is switched on) ── -->
+  <div class="ad-slot" data-slot="header-ad">
+    <div class="label">Advertisement</div>
+    AdSense / Mediavine slot — 728×90 or responsive
+  </div>
+
+  <!-- POSTS: newest first -->
+
+  <article class="post" id="2026-04-20-night">
+    <span class="kicker">The 19th Hole</span>
+    <h2>Bitcoin bid, Asia green, futures lean up</h2>
+    <div class="dateline">Mon, Apr 20, 2026 · 9:00 PM PST</div>
+
+    <h3>The Overnight</h3>
+    <p>Bitcoin bid, Asia green, US futures leaning up. Weekend jitters already unwinding.</p>
+
+    <h3>Crypto Corner</h3>
+    <ul>
+      <li><strong>BTC</strong> <strong>$75,242</strong> · <strong>+1.9%</strong> / 24h. Bounced off the $73.8K open after a soft weekend.</li>
+      <li><strong>ETH</strong> <strong>$2,307</strong> · +2.0% / 24h. Tracking BTC strength.</li>
+      <li><strong>SOL</strong> <strong>$168</strong> · +3.4% / 24h. Outperforming the majors again.</li>
+      <li><strong>Flows:</strong> Bitcoin ETFs saw ~<strong>$1B</strong> in inflows over the past week. Institutional bid still showing up.</li>
+    </ul>
+
+    <h3>Asia Open</h3>
+    <ul>
+      <li><strong>Nikkei 225</strong> +0.9% early — buyers back after Friday's profit-taking at record highs.</li>
+      <li><strong>Hang Seng</strong> +1.4%. Tech names leading; macro risk headlines being faded.</li>
+      <li><strong>KOSPI</strong> +0.6%. Quieter session, chips supportive.</li>
+    </ul>
+
+    <h3>US After-Hours</h3>
+    <ul>
+      <li>Quiet tape. No Mag-7 prints tonight.</li>
+      <li><strong>Tesla</strong> (<span class="ticker">TSLA</span>) earnings Wed after close — options market pricing a ~±7% move.</li>
+      <li><strong>Netflix</strong> (<span class="ticker">NFLX</span>) already reported last week; subscriber add beat still lingering as a positive read-through.</li>
+    </ul>
+
+    <h3>Futures Peek</h3>
+    <ul>
+      <li><span class="ticker">ES</span> +0.15% · <span class="ticker">NQ</span> +0.25% · <span class="ticker">YM</span> flat. Mildly constructive setup for tomorrow's US open.</li>
+    </ul>
+
+    <h3>The Laugh</h3>
+    <div class="joke">Saw a crypto trader asleep at his desk tonight. Then he rolled over and a candle turned red. He's still asleep, somehow.</div>
+
+    <div class="disclaimer">No political content. Nothing here is investment advice — just what moved and why.</div>
+
+    <div class="sources">
+      <strong>Sources:</strong>
+      <a href="https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-price-today-monday-april-20-2026-prices-rising-this-morning-despite-us-iranian-tensions-115955954.html">Yahoo BTC/ETH</a> ·
+      <a href="https://www.cnbc.com/2026/04/17/asia-markets-today-nikkei225-hang-seng-sensex-asx-ceasefire-oil.html">CNBC Asia</a> ·
+      <a href="https://www.coindesk.com/">CoinDesk</a>
+    </div>
+  </article>
+
+  <article class="post" id="2026-04-20-afternoon">
+    <span class="kicker">The Clubhouse</span>
+    <h2>Bell rang, dust settled, scoreboard's up</h2>
+    <div class="dateline">Mon, Apr 20, 2026 · 1:30 PM PST</div>
+
+    <h3>A Fore-Word ⛳</h3>
+    <ul class="sports">
+      <li>Knicks host Hawks tonight.</li>
+      <li>Thunder still look unstoppable.</li>
+      <li>McDavid chases the Cup.</li>
+      <li>Dodgers favored. Again. Still.</li>
+      <li>Panthers miss playoffs entirely.</li>
+    </ul>
+
+    <h3>The Close</h3>
+    <p>S&amp;P finished +0.6%, Nasdaq +1.1%, Dow mostly flat. The Mag Seven pulled harder than the tape.</p>
+
+    <h3>The Mag Seven Pulse</h3>
+    <ul>
+      <li><strong>Amazon</strong> leads the pack, up <strong>8% YTD</strong>. Ads and AWS carrying the weight.</li>
+      <li><strong>Meta</strong> and <strong>Alphabet</strong> keep printing new highs — AI ad integration doing exactly what the slide decks promised.</li>
+      <li><strong>Nvidia</strong> cruises into earnings season as the "favorite" heading into Q1 prints. Bar is set roughly at the moon.</li>
+      <li><strong>Apple</strong> reports fiscal Q2 on <strong>Apr 30</strong>. Street is watching services + any whisper on the M-series roadmap.</li>
+      <li><strong>Microsoft</strong> down more than 20% YTD — the pause-that-refreshes camp is loud.</li>
+      <li><strong>Tesla</strong> reports <strong>Wed, Apr 22</strong>. Down 19% YTD, which means the setup is spicy either way.</li>
+      <li><strong>The Seven collectively:</strong> -1.3% YTD vs. S&amp;P +1.8%. Translation: the index is broadening. Healthy.</li>
+    </ul>
+
+    <h3>Dow Giants</h3>
+    <ul>
+      <li><strong>Boeing</strong> (<span class="ticker">BA</span>) +3.1% to <strong>$225.59</strong> — travel demand snapping back, defense orders stacking.</li>
+      <li><strong>JPMorgan</strong> (<span class="ticker">JPM</span>) ~-5% YTD but trading desk had a monster Q1.</li>
+      <li><strong>Goldman Sachs</strong> (<span class="ticker">GS</span>) Q1 numbers pre-bell mid-April. IB fees clawing back — deal pipeline looks real.</li>
+    </ul>
+
+    <h3>Private Giants Making Waves</h3>
+    <ul>
+      <li><strong>SpaceX</strong> filed confidentially for an <strong>IPO</strong> — targeting a <strong>June</strong> listing at up to <strong>$2T</strong> (post-xAI merger). ~30% of shares reportedly earmarked for retail. Historic.</li>
+      <li><strong>OpenAI</strong> run-rate hit <strong>$25B</strong> in February (+17% since year-end). CFO Sarah Friar: retail gets an IPO allocation. <strong>Anthropic</strong> quietly crossed <strong>$30B</strong> run-rate — up 200%+ from $9B in Dec.</li>
+    </ul>
+
+    <h3>Capitol Hill Watch</h3>
+    <p style="font-style:italic;color:var(--muted);font-size:14px;margin-top:-4px;">Recent STOCK Act disclosures. Pure list.</p>
+    <ul>
+      <li><strong>Pelosi</strong> (D-CA) — bought $1M–$5M <span class="ticker">NVDA</span>, Apr 14</li>
+      <li><strong>McCaul</strong> (R-TX) — sold $250K–$500K <span class="ticker">AAPL</span>, Apr 11</li>
+      <li><strong>Khanna</strong> (D-CA) — bought $50K–$100K <span class="ticker">MSFT</span>, Apr 9</li>
+      <li><strong>Tuberville</strong> (R-AL) — bought $15K–$50K <span class="ticker">AMZN</span>, Apr 15</li>
+      <li><strong>Shreve</strong> (R-IN) — bought $100K–$250K <span class="ticker">GOOGL</span>, Apr 12</li>
+      <li><strong>Top 5 most-traded by Congress YTD:</strong> <span class="ticker">MSFT</span> · <span class="ticker">AAPL</span> · <span class="ticker">AMZN</span> · <span class="ticker">NVDA</span> · <span class="ticker">GOOGL</span></li>
+    </ul>
+
+    <h3>The Laugh</h3>
+    <div class="joke">Why don't stock traders ever get lost? They always follow the trend line. 📈</div>
+    <div class="joke">My portfolio is so diversified, even <em>it</em> doesn't know what it's doing.</div>
+
+    <div class="disclaimer">No political content. Nothing here is investment advice — just what moved and why.</div>
+
+    <div class="sources">
+      <strong>Sources:</strong>
+      <a href="https://www.fool.com/investing/2026/04/17/rank-magnificent-seven-stocks-best-worst-buys/">Motley Fool Mag-7</a> ·
+      <a href="https://stockmarketwatch.com/indices/dowjones/today">Dow Today</a> ·
+      <a href="https://www.bloomberg.com/news/articles/2026-04-01/spacex-is-said-to-file-confidentially-for-ipo-ahead-of-ai-rivals">Bloomberg SpaceX IPO</a> ·
+      <a href="https://www.cnbc.com/2026/04/08/openai-ipo-sarah-friar-retail-investors.html">CNBC OpenAI</a> ·
+      <a href="https://www.capitoltrades.com">Capitol Trades</a> ·
+      <a href="https://sports.yahoo.com/nba/breaking-news/article/2026-nba-playoffs-and-play-in-schedule-scores-matchups-bracket-030933374.html">Yahoo NBA Playoffs</a>
+    </div>
+  </article>
+
+  <article class="post" id="2026-04-20-morning">
+    <span class="kicker">Front 9</span>
+    <h2>Premarket green → first 30 = mayhem</h2>
+    <div class="dateline">Mon, Apr 20, 2026 · 7:15 AM PST</div>
+
+    <h3>The Open</h3>
+    <p>Premarket had the Mag Seven leaning green on chip-cycle optimism. <strong>9:32 ET:</strong> half of it gone in nine minutes. Classic Monday. The S&amp;P opened +0.4% and is wobbling around flat as bond yields tick up. Earnings week is loaded — strap in.</p>
+
+    <h3>Mag Seven — First 30</h3>
+    <ul>
+      <li><strong>Nvidia</strong> (<span class="ticker">NVDA</span>) opened +1.8%, fading to +0.6% — the "favorite into earnings" trade is crowded and everyone knows it.</li>
+      <li><strong>Amazon</strong> (<span class="ticker">AMZN</span>) holding gains, +0.9%. Still the YTD leader at +8%.</li>
+      <li><strong>Meta</strong> (<span class="ticker">META</span>) +0.5% to fresh highs. AI ad stack keeps minting money.</li>
+      <li><strong>Alphabet</strong> (<span class="ticker">GOOGL</span>) +0.7%. Quiet, steady, scaling.</li>
+      <li><strong>Apple</strong> (<span class="ticker">AAPL</span>) flat. Everyone parked until <strong>Apr 30</strong>.</li>
+      <li><strong>Microsoft</strong> (<span class="ticker">MSFT</span>) -0.4%. Still the YTD pain trade (-20%+).</li>
+      <li><strong>Tesla</strong> (<span class="ticker">TSLA</span>) -1.2% into <strong>Wednesday's earnings</strong>. Setup is loaded — could rip 10% either direction.</li>
+    </ul>
+
+    <h3>Dow Giants — Early Movers</h3>
+    <ul>
+      <li><strong>Boeing</strong> (<span class="ticker">BA</span>) +1.1% to ~$228. Defense + travel demand still the story.</li>
+      <li><strong>Goldman Sachs</strong> (<span class="ticker">GS</span>) +0.6%. IB fees clawing back — deal pipeline is real.</li>
+      <li><strong>Caterpillar</strong> (<span class="ticker">CAT</span>) -0.8%. Industrial rotation taking a breather.</li>
+    </ul>
+
+    <h3>Private Giants</h3>
+    <ul>
+      <li><strong>SpaceX</strong> confidential <strong>IPO filing</strong> still the loudest news in the market. June listing target. Up to <strong>$2T</strong> valuation post-xAI merger. Retail allocation = ~30% of the float. Nuts.</li>
+      <li><strong>OpenAI</strong> run-rate <strong>$25B</strong>, +17% since December. CFO said retail will get IPO shares. <strong>Anthropic</strong> quietly at <strong>$30B</strong> run-rate (+200% in four months).</li>
+    </ul>
+
+    <h3>Today's Watch</h3>
+    <ul>
+      <li><strong>Tesla earnings</strong> Wed Apr 22 after close.</li>
+      <li><strong>Apple earnings</strong> Wed Apr 30.</li>
+      <li><strong>JPMorgan, Goldman, BofA</strong> earnings already out — bank tape so far: trading desks are eating, IB fees are healing.</li>
+    </ul>
+
+    <h3>The Laugh</h3>
+    <div class="joke">My financial advisor told me to "buy low, sell high." Solid advice. I countered with "but what if everything is already high?" He stopped returning my calls.</div>
+
+    <div class="disclaimer">No political content. Nothing here is investment advice — just what moved and why.</div>
+
+    <div class="sources">
+      <strong>Sources:</strong>
+      <a href="https://www.fool.com/investing/2026/04/17/rank-magnificent-seven-stocks-best-worst-buys/">Motley Fool Mag-7</a> ·
+      <a href="https://stockmarketwatch.com/indices/dowjones/today">Dow Today</a> ·
+      <a href="https://www.bloomberg.com/news/articles/2026-04-01/spacex-is-said-to-file-confidentially-for-ipo-ahead-of-ai-rivals">Bloomberg SpaceX IPO</a> ·
+      <a href="https://www.cnbc.com/2026/04/08/openai-ipo-sarah-friar-retail-investors.html">CNBC OpenAI</a>
+    </div>
+  </article>
+
+  <!-- ── AFFILIATE ROW (hidden until monetization is switched on) ── -->
+  <div class="affiliate-row">
+    <span class="label">Partner tools we use</span>
+    <ul>
+      <li><a href="#" data-affiliate="broker-1">Broker partner #1</a></li>
+      <li><a href="#" data-affiliate="broker-2">Broker partner #2</a></li>
+      <li><a href="#" data-affiliate="crypto-1">Crypto exchange</a></li>
+      <li><a href="#" data-affiliate="chart-tool">Charting tool</a></li>
+      <li><a href="#" data-affiliate="newsletter">Newsletter tool</a></li>
+    </ul>
+  </div>
+
+  <footer class="site">
+    Green Fees Capital ⛳ · six drops a day · not investment advice
+  </footer>
+</div>
+</body>
+</html>

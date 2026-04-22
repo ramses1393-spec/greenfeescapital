@@ -356,6 +356,57 @@
   }
   .affiliate-row a { color: var(--accent); text-decoration: none; }
   .affiliate-row a:hover { text-decoration: underline; }
+
+  /* ── Swipe / arrow drop navigation (additive, no layout changes) ─── */
+  .drop-nav {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    background: rgba(17, 24, 39, 0.92);
+    color: #f9fafb;
+    border-radius: 999px;
+    font-family: ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    user-select: none;
+  }
+  .drop-nav-btn {
+    background: transparent;
+    border: 0;
+    color: #f9fafb;
+    font-size: 22px;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background 0.15s ease;
+  }
+  .drop-nav-btn:hover:not([disabled]) { background: rgba(255, 255, 255, 0.12); }
+  .drop-nav-btn[disabled] { opacity: 0.35; cursor: default; }
+  .drop-nav-indicator {
+    min-width: 58px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    font-variant-numeric: tabular-nums;
+    padding: 0 4px;
+  }
+  @media (max-width: 480px) {
+    .drop-nav { bottom: 12px; font-size: 12px; }
+    .drop-nav-indicator { min-width: 54px; }
+  }
 </style>
 </head>
 <body class="monetize-off">
@@ -676,5 +727,110 @@
     Green Fees Capital ⛳ · six drops a day · not investment advice
   </footer>
 </div>
+
+<!-- ── Swipe / arrow drop navigation (additive) ───────────────── -->
+<nav class="drop-nav" aria-label="Brief navigation" role="navigation">
+  <button class="drop-nav-btn drop-nav-prev" type="button" aria-label="Newer brief (swipe left)">‹</button>
+  <span class="drop-nav-indicator" aria-live="polite">Hole 1/6</span>
+  <button class="drop-nav-btn drop-nav-next" type="button" aria-label="Earlier brief (swipe right)">›</button>
+</nav>
+<script>
+(function () {
+  var articles = document.querySelectorAll('article.post');
+  if (!articles.length) return;
+  var current = 0;
+
+  var indicator = document.querySelector('.drop-nav-indicator');
+  var prevBtn = document.querySelector('.drop-nav-prev');
+  var nextBtn = document.querySelector('.drop-nav-next');
+
+  function render() {
+    if (indicator) indicator.textContent = 'Hole ' + (current + 1) + '/' + articles.length;
+    if (prevBtn) prevBtn.disabled = current === 0;
+    if (nextBtn) nextBtn.disabled = current === articles.length - 1;
+  }
+
+  function goTo(index) {
+    if (index < 0 || index >= articles.length) return;
+    current = index;
+    articles[current].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (history.replaceState) {
+      history.replaceState(null, '', '#' + articles[current].id);
+    }
+    render();
+  }
+
+  function next() { goTo(current + 1); } // swipe right → older
+  function prev() { goTo(current - 1); } // swipe left  → newer
+
+  // Buttons
+  if (prevBtn) prevBtn.addEventListener('click', prev);
+  if (nextBtn) nextBtn.addEventListener('click', next);
+
+  // Keyboard: ← newer, → older. Ignore when typing.
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target;
+    if (t && t.closest && t.closest('input, textarea, [contenteditable]')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+
+  // Swipe: horizontal-dominant only, so vertical scrolling still works.
+  var startX = 0, startY = 0, active = false;
+  document.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1) { active = false; return; }
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    active = true;
+  }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (!active) return;
+    active = false;
+    var t = e.changedTouches[0];
+    var dx = t.clientX - startX;
+    var dy = t.clientY - startY;
+    var H_MIN = 60;
+    if (Math.abs(dx) < H_MIN) return;
+    if (Math.abs(dx) < Math.abs(dy) * 1.2) return; // ignore mostly-vertical
+    if (dx > 0) next(); // right → older
+    else prev();        // left  → newer
+  }, { passive: true });
+
+  // Keep indicator synced when the reader scrolls manually.
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      var top = null;
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+          if (!top || entry.boundingClientRect.top < top.boundingClientRect.top) {
+            top = entry;
+          }
+        }
+      });
+      if (top) {
+        var idx = Array.prototype.indexOf.call(articles, top.target);
+        if (idx !== -1 && idx !== current) {
+          current = idx;
+          if (history.replaceState) {
+            history.replaceState(null, '', '#' + articles[current].id);
+          }
+          render();
+        }
+      }
+    }, { threshold: [0.4, 0.6] });
+    for (var i = 0; i < articles.length; i++) io.observe(articles[i]);
+  }
+
+  // Honor hash on first load.
+  var hash = window.location.hash ? window.location.hash.slice(1) : '';
+  if (hash) {
+    for (var j = 0; j < articles.length; j++) {
+      if (articles[j].id === hash) { current = j; break; }
+    }
+  }
+  render();
+})();
+</script>
 </body>
 </html>

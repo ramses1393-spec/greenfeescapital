@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Archive — Green Fees Capital ⛳</title>
+<meta name="description" content="Every drop from Green Fees Capital — six market briefs a day, archived straight down the fairway." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://greenfeescapital.com/archive/" />
+<link rel="icon" type="image/png" href="/assets/favicon.png" />
+
+<style>
+/* ── Same design system as index.html ─────────────────────────── */
+:root {
+  --bg:       #faf8f4;
+  --ink:      #1a1a1a;
+  --muted:    #6b6b6b;
+  --rule:     #e5e0d6;
+  --accent:   #c2410c;
+  --chip:     #111827;
+  --chip-ink: #f9fafb;
+  --font-serif: "Iowan Old Style", "Charter", Georgia, "Times New Roman", serif;
+  --font-sans:  ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+  --font-mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --max-width: 720px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+body {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* ── Header ── */
+.archive-header {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 28px;
+  margin-bottom: 36px;
+}
+.archive-header .back {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 16px;
+  letter-spacing: 0.04em;
+}
+.archive-header .back:hover { color: var(--accent); }
+.archive-header h1 {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+.archive-header p {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 17px;
+  margin: 0;
+}
+
+/* ── Date group ── */
+.date-group {
+  margin-bottom: 36px;
+}
+.date-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ── Drop row ── */
+.drop-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(229, 224, 214, 0.5);
+  text-decoration: none;
+  color: var(--ink);
+  transition: background 0.1s ease;
+}
+.drop-row:last-child { border-bottom: none; }
+.drop-row:hover { color: var(--accent); }
+
+.drop-row .kicker {
+  flex-shrink: 0;
+  display: inline-block;
+  background: var(--chip);
+  color: var(--chip-ink);
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  border-radius: 3px;
+  min-width: 110px;
+  text-align: center;
+}
+.drop-row .time {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 52px;
+}
+.drop-row .headline {
+  font-size: 16px;
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* ── Empty state ── */
+.empty {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 16px;
+  padding: 20px 0;
+}
+
+/* ── Footer ── */
+footer.site {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  text-align: center;
+  line-height: 1.8;
+}
+footer.site a { color: var(--muted); text-decoration: none; margin: 0 4px; }
+footer.site a:hover { color: var(--accent); text-decoration: underline; }
+footer.site .sep { color: var(--rule); }
+
+@media (max-width: 480px) {
+  .wrap { padding: 32px 16px 60px; }
+  .drop-row { flex-wrap: wrap; gap: 6px; }
+  .drop-row .kicker { min-width: auto; }
+  .drop-row .headline { width: 100%; }
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="archive-header">
+    <a class="back" href="/">← Back to today's drops</a>
+    <h1>Archive ⛳</h1>
+    <p>Every drop, every day — the full scorecard.</p>
+  </div>
+
+  <main id="archive-list">
+    <!-- ARCHIVE: newest first -->
+    <!-- publish-drop.sh appends archive entries here in this format:
+    <div class="date-group">
+      <div class="date-label">Mon, Apr 21, 2026</div>
+      <a class="drop-row" href="/#2026-04-21-driving-range">
+        <span class="kicker">Driving Range</span>
+        <span class="time">6:00 AM</span>
+        <span class="headline">Cook Out, Ternus In — Tape Holds Its Ground</span>
+      </a>
+    </div>
+    -->
+    <p class="empty">Archive entries will appear here as drops are published.</p>
+  </main>
+
+  <footer class="site">
+    Green Fees Capital ⛳ · six drops a day · not investment advice<br>
+    <a href="/">Home</a>
+    <span class="sep">·</span>
+    <a href="/sitemap.xml">Sitemap</a>
+    <span class="sep">·</span>
+    <a href="/feed.xml">RSS</a>
+    <span class="sep">·</span>
+    <a href="/llms.txt">llms.txt</a>
+  </footer>
+
+</div>
+</body>
+</html>

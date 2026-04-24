@@ -68,259 +68,130 @@ if [[ ! -f "$ARTICLE_FILE" ]]; then
   exit 1
 fi
 
-ARTICLE_CONTENT=$(cat "$ARTICLE_FILE")
-ANCHOR="${TODAY}-${SLUG}"
-
-echo "📋 Publishing: $ANCHOR"
+echo "📋 Publishing: ${TODAY}-${SLUG}"
 echo "📄 Article file: $ARTICLE_FILE"
 
-# ── Fetch live index.html from GitHub ───────────────────────────────
-echo "🔄 Fetching live index.html..."
+# ── All GitHub operations delegated to Python (safe with large files) ──
+python3 - "$TOKEN_FILE" "$API" "$ARTICLE_FILE" "$SLUG" "$TODAY" "$BRANCH" << 'PYEOF'
+import json, base64, urllib.request, urllib.error, re, sys, time, subprocess
 
-FETCH_RESPONSE=$(curl -sf \
-  -H "Authorization: token $TOKEN" \
-  -H "Accept: application/vnd.github.v3+json" \
-  "${API}/index.html")
+token_file, api, article_file, slug, today, branch = sys.argv[1:7]
+token  = open(token_file).read().strip()
+anchor = f"{today}-{slug}"
 
-if [[ $? -ne 0 ]]; then
-  echo "❌ Failed to fetch index.html from GitHub"
-  exit 1
-fi
+headers_ro = {"Authorization": f"token {token}", "Accept": "application/vnd.github.v3+json"}
+headers_rw = {**headers_ro, "Content-Type": "application/json"}
 
-# Extract SHA and decode content using Python
-READ_RESULT=$(echo "$FETCH_RESPONSE" | python3 -c "
-import sys, json, base64
-data = json.load(sys.stdin)
-sha = data['sha']
-content = base64.b64decode(data['content']).decode('utf-8')
-print(sha)
-print('---CONTENT---')
-print(content)
-")
+def gh_get(path):
+    req = urllib.request.Request(f"{api}/{path}", headers=headers_ro)
+    with urllib.request.urlopen(req) as r:
+        return json.load(r)
 
-SHA=$(echo "$READ_RESULT" | head -1)
-CURRENT_HTML=$(echo "$READ_RESULT" | tail -n +3)
+def gh_put(path, sha, content_str, message, attempt=1):
+    encoded = base64.b64encode(content_str.encode("utf-8")).decode("utf-8")
+    payload = json.dumps({"message": message, "content": encoded, "sha": sha, "branch": branch}).encode("utf-8")
+    req = urllib.request.Request(f"{api}/{path}", data=payload, headers=headers_rw, method="PUT")
+    try:
+        with urllib.request.urlopen(req) as r:
+            return json.load(r)["commit"]["sha"]
+    except urllib.error.HTTPError as e:
+        body = e.read().decode()
+        err  = json.loads(body) if body else {}
+        if e.code == 409 or "conflict" in err.get("message", "").lower():
+            if attempt <= 3:
+                wait = attempt * 5
+                print(f"  ⚠️  409 conflict — waiting {wait}s (attempt {attempt}/3)...")
+                time.sleep(wait)
+                fresh     = gh_get(path)
+                fresh_sha = fresh["sha"]
+                fresh_html = base64.b64decode(fresh["content"]).decode("utf-8")
+                if f'id="{anchor}"' in fresh_html:
+                    print("  ✅ Already live after re-fetch — idempotent")
+                    return fresh_sha
+                marker  = "<!-- POSTS: newest first -->"
+                article = open(article_file).read().strip()
+                updated = fresh_html.replace(marker, marker + "\n\n  " + article + "\n", 1)
+                return gh_put(path, fresh_sha, updated, message, attempt + 1)
+            print("❌ All 3 push attempts failed (409 conflicts)"); sys.exit(1)
+        print(f"❌ Push failed {e.code}: {body}"); sys.exit(1)
 
-echo "✅ Fetched index.html (SHA: ${SHA:0:12})"
+# Fetch index.html
+print("🔄 Fetching live index.html...")
+data    = gh_get("index.html")
+sha     = data["sha"]
+current = base64.b64decode(data["content"]).decode("utf-8")
+print(f"✅ Fetched index.html (SHA: {sha[:12]})")
 
-# ── Idempotency check ────────────────────────────────────────────────
-if echo "$CURRENT_HTML" | grep -q "id=\"${ANCHOR}\""; then
-  echo "⏭️  Already published: $ANCHOR — skipping (idempotent)"
-  exit 0
-fi
+# Idempotency
+if f'id="{anchor}"' in current:
+    print(f"⏭️  Already published: {anchor} — skipping (idempotent)")
+    sys.exit(0)
 
-# ── Prepend article at the POSTS marker ─────────────────────────────
-MARKER="<!-- POSTS: newest first -->"
+# Prepend article
+marker = "<!-- POSTS: newest first -->"
+if marker not in current:
+    print("❌ POSTS marker not found in index.html — cannot publish"); sys.exit(1)
+article = open(article_file).read().strip()
+updated = current.replace(marker, marker + "\n\n  " + article + "\n", 1)
+print("✅ Article prepended at POSTS marker")
 
-if ! echo "$CURRENT_HTML" | grep -q "$MARKER"; then
-  echo "❌ POSTS marker not found in index.html — cannot publish"
-  exit 1
-fi
+# Push index.html
+print("🚀 Pushing to GitHub...")
+commit_sha = gh_put("index.html", sha, updated, f"drop({slug}): {today} — auto-published by publish-drop.sh")
+print(f"✅ Pushed successfully — commit: {commit_sha[:12]}")
 
-UPDATED_HTML=$(echo "$CURRENT_HTML" | python3 -c "
-import sys
-marker = '<!-- POSTS: newest first -->'
-article = open('$ARTICLE_FILE').read().strip()
-html = sys.stdin.read()
-# Prepend article right after the marker with clean spacing
-updated = html.replace(marker, marker + '\n\n  ' + article + '\n', 1)
-print(updated)
-")
-
-echo "✅ Article prepended at POSTS marker"
-
-# ── Encode and push to GitHub (3x retry on 409) ──────────────────────
-push_to_github() {
-  local attempt=$1
-  local backoff=$((attempt * 5))
-
-  echo "🚀 Push attempt ${attempt}/3..."
-
-  ENCODED=$(echo "$UPDATED_HTML" | python3 -c "
-import sys, base64
-content = sys.stdin.read()
-print(base64.b64encode(content.encode('utf-8')).decode('utf-8'))
-")
-
-  PUSH_RESPONSE=$(curl -sf -X PUT \
-    -H "Authorization: token $TOKEN" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/vnd.github.v3+json" \
-    "${API}/index.html" \
-    -d "$(python3 -c "
-import json, sys
-print(json.dumps({
-  'message': 'drop($SLUG): $TODAY — auto-published by publish-drop.sh',
-  'content': '''$ENCODED''',
-  'sha': '$SHA',
-  'branch': '$BRANCH'
-}))
-")" 2>&1)
-
-  local exit_code=$?
-  local http_status=$(echo "$PUSH_RESPONSE" | python3 -c "
-import sys, json
+# Verify live
+print("🔍 Verifying article is live...")
+time.sleep(3)
 try:
-    d = json.load(sys.stdin)
-    if 'commit' in d:
-        print('201')
-    elif d.get('message','').startswith('conflict'):
-        print('409')
-    else:
-        print('error:' + d.get('message','unknown'))
-except:
-    print('parse_error')
-" 2>/dev/null)
+    with urllib.request.urlopen("https://greenfeescapital.com/") as r:
+        if f'id="{anchor}"' in r.read().decode("utf-8", errors="replace"):
+            print(f"✅ Verified live: https://greenfeescapital.com/#{anchor}")
+        else:
+            print(f"⚠️  Not yet visible (CDN propagating) — expected: #{anchor}")
+except Exception as ex:
+    print(f"⚠️  Could not verify live: {ex}")
 
-  if [[ "$http_status" == "201" ]]; then
-    COMMIT_SHA=$(echo "$PUSH_RESPONSE" | python3 -c "
-import sys, json
-d = json.load(sys.stdin)
-print(d['commit']['sha'])
-")
-    echo "✅ Pushed successfully — commit: ${COMMIT_SHA:0:12}"
-    echo "$COMMIT_SHA"
-    return 0
-  elif [[ "$http_status" == "409" ]]; then
-    echo "⚠️  409 conflict on attempt $attempt — waiting ${backoff}s then retrying..."
-    sleep $backoff
-    return 1
-  else
-    echo "❌ Push failed: $http_status"
-    echo "$PUSH_RESPONSE"
-    return 2
-  fi
-}
+# Archive entry
+print("📁 Writing archive entry...")
+kicker_m  = re.search(r'<span class="kicker">(.*?)</span>', article)
+kicker    = kicker_m.group(1) if kicker_m else "Drop"
+head_m    = re.search(r'<h2>(.*?)<a class="permalink"', article, re.DOTALL)
+headline  = re.sub(r'<[^>]+>', '', head_m.group(1)).strip() if head_m else "Market Brief"
+time_m    = re.search(r'·\s*(\d+:\d+\s*[AP]M)', article)
+drop_time = time_m.group(1) if time_m else ""
+day_human = subprocess.check_output(["bash", "-c", 'TZ=America/Los_Angeles date "+%a, %b %-d, %Y"']).decode().strip()
 
-COMMIT_SHA=""
-for attempt in 1 2 3; do
-  result=$(push_to_github $attempt) && {
-    COMMIT_SHA=$(echo "$result" | tail -1)
-    break
-  } || {
-    exit_val=$?
-    if [[ $exit_val -eq 2 ]]; then
-      echo "❌ Fatal error on push — aborting"
-      exit 1
-    fi
-    if [[ $attempt -eq 3 ]]; then
-      echo "❌ All 3 push attempts failed (409 conflicts)"
-      exit 1
-    fi
-  }
-done
+archive_entry = (
+    f'\n    <div class="date-group" id="archive-{anchor}">'
+    f'\n      <div class="date-label">{day_human}</div>'
+    f'\n      <a class="drop-row" href="/#{anchor}">'
+    f'\n        <span class="kicker">{kicker}</span>'
+    f'\n        <span class="time">{drop_time}</span>'
+    f'\n        <span class="headline">{headline}</span>'
+    f'\n      </a>'
+    f'\n    </div>'
+)
 
-# ── Verify article is live ────────────────────────────────────────────
-echo "🔍 Verifying article is live..."
-sleep 3
+arch_data = gh_get("archive/index.html")
+arch_sha  = arch_data["sha"]
+arch_html = base64.b64decode(arch_data["content"]).decode("utf-8")
 
-VERIFY=$(curl -sf "https://greenfeescapital.com/" | grep -c "id=\"${ANCHOR}\"" || true)
-
-if [[ "$VERIFY" -gt 0 ]]; then
-  echo "✅ Verified live: https://greenfeescapital.com/#${ANCHOR}"
-else
-  echo "⚠️  Not yet visible at greenfeescapital.com (CDN may still be propagating)"
-  echo "   Expected anchor: #${ANCHOR}"
-fi
-
-# ── Write archive entry ───────────────────────────────────────────────
-echo "📁 Writing archive entry..."
-
-KICKER=$(echo "$ARTICLE_CONTENT" | python3 -c "
-import sys, re
-html = sys.stdin.read()
-m = re.search(r'<span class=\"kicker\">(.*?)</span>', html)
-print(m.group(1) if m else 'Drop')
-")
-
-HEADLINE=$(echo "$ARTICLE_CONTENT" | python3 -c "
-import sys, re
-html = sys.stdin.read()
-m = re.search(r'<h2>(.*?)<a class=\"permalink\"', html, re.DOTALL)
-if m:
-    # Strip any HTML tags from headline
-    text = re.sub(r'<[^>]+>', '', m.group(1)).strip()
-    print(text)
+if f"archive-{anchor}" in arch_html:
+    print("⏭️  Archive entry already exists — skipping")
 else:
-    print('Market Brief')
-")
+    arch_marker  = "<!-- ARCHIVE: newest first -->"
+    arch_html    = re.sub(r'\s*<p class="empty">.*?</p>', '', arch_html, flags=re.DOTALL)
+    updated_arch = arch_html.replace(arch_marker, arch_marker + archive_entry, 1)
+    gh_put("archive/index.html", arch_sha, updated_arch, f"archive({slug}): add {today} entry")
+    print("✅ Archive entry written")
 
-DROP_TIME=$(echo "$ARTICLE_CONTENT" | python3 -c "
-import sys, re
-html = sys.stdin.read()
-m = re.search(r'·\s*(\d+:\d+\s*[AP]M)', html)
-print(m.group(1) if m else '')
-")
-
-DAY_HUMAN=$(TZ=America/Los_Angeles date "+%a, %b %-d, %Y")
-
-ARCHIVE_ENTRY="
-    <div class=\"date-group\" id=\"archive-${ANCHOR}\">
-      <div class=\"date-label\">${DAY_HUMAN}</div>
-      <a class=\"drop-row\" href=\"/#${ANCHOR}\">
-        <span class=\"kicker\">${KICKER}</span>
-        <span class=\"time\">${DROP_TIME}</span>
-        <span class=\"headline\">${HEADLINE}</span>
-      </a>
-    </div>"
-
-# Fetch archive index.html
-ARCHIVE_FETCH=$(curl -sf \
-  -H "Authorization: token $TOKEN" \
-  -H "Accept: application/vnd.github.v3+json" \
-  "${API}/archive/index.html")
-
-ARCHIVE_SHA=$(echo "$ARCHIVE_FETCH" | python3 -c "import sys,json; print(json.load(sys.stdin)['sha'])")
-ARCHIVE_HTML=$(echo "$ARCHIVE_FETCH" | python3 -c "
-import sys, json, base64
-print(base64.b64decode(json.load(sys.stdin)['content']).decode('utf-8'))
-")
-
-ARCHIVE_MARKER="<!-- ARCHIVE: newest first -->"
-
-# Only add to archive if not already there
-if ! echo "$ARCHIVE_HTML" | grep -q "archive-${ANCHOR}"; then
-  UPDATED_ARCHIVE=$(echo "$ARCHIVE_HTML" | python3 -c "
-import sys
-marker = '<!-- ARCHIVE: newest first -->'
-entry = '''$ARCHIVE_ENTRY'''
-html = sys.stdin.read()
-# Remove empty state paragraph once first entry added
-import re
-html = re.sub(r'\s*<p class=\"empty\">.*?</p>', '', html, flags=re.DOTALL)
-updated = html.replace(marker, marker + entry, 1)
-print(updated)
-")
-
-  ARCHIVE_ENCODED=$(echo "$UPDATED_ARCHIVE" | python3 -c "
-import sys, base64
-print(base64.b64encode(sys.stdin.read().encode('utf-8')).decode('utf-8'))
-")
-
-  curl -sf -X PUT \
-    -H "Authorization: token $TOKEN" \
-    -H "Content-Type: application/json" \
-    "${API}/archive/index.html" \
-    -d "$(python3 -c "
-import json
-print(json.dumps({
-  'message': 'archive($SLUG): add $TODAY entry',
-  'content': '$ARCHIVE_ENCODED',
-  'sha': '$ARCHIVE_SHA',
-  'branch': '$BRANCH'
-}))
-")" > /dev/null
-
-  echo "✅ Archive entry written"
-else
-  echo "⏭️  Archive entry already exists — skipping"
-fi
-
-# ── Done ──────────────────────────────────────────────────────────────
-echo ""
-echo "════════════════════════════════════════"
-echo "✅ DROP LIVE: $ANCHOR"
-echo "   URL:    https://greenfeescapital.com/#${ANCHOR}"
-echo "   Commit: ${COMMIT_SHA:0:12}"
-echo "   Time:   $(TZ=America/Los_Angeles date '+%I:%M %p PST')"
-echo "════════════════════════════════════════"
+t = subprocess.check_output(["bash", "-c", 'TZ=America/Los_Angeles date "+%I:%M %p PST"']).decode().strip()
+print("")
+print("════════════════════════════════════════")
+print(f"✅ DROP LIVE: {anchor}")
+print(f"   URL:    https://greenfeescapital.com/#{anchor}")
+print(f"   Commit: {commit_sha[:12]}")
+print(f"   Time:   {t}")
+print("════════════════════════════════════════")
+PYEOF

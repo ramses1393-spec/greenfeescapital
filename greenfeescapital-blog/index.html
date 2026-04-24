@@ -12,20 +12,19 @@
 <meta name="keywords" content="market brief, daily market recap, Mag 7 stocks, Dow giants, crypto market, Capitol Hill trades, pre-market, after-hours, earnings calendar, macro, golf" />
 <meta name="author" content="Green Fees Capital" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-<meta name="generator" content="Green Fees Capital — hand-assembled" />
 
-<!-- ── Icons / feed / sitemap ───────────────────────────────── -->
+<!-- ── Canonical, icons, feeds ──────────────────────────────── -->
 <link rel="icon" type="image/png" href="/assets/favicon.png" />
 <link rel="apple-touch-icon" href="/assets/favicon.png" />
 <link rel="canonical" href="https://greenfeescapital.com/" />
 <link rel="alternate" type="application/rss+xml" title="Green Fees Capital — all drops" href="/feed.xml" />
 <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
-<!-- ── OpenGraph ─────────────────────────────────────────────── -->
+<!-- ── OpenGraph ────────────────────────────────────────────── -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Green Fees Capital" />
 <meta property="og:title" content="Green Fees Capital ⛳ — market briefs, six drops a day" />
-<meta property="og:description" content="A full round of market briefs — six drops a day, straight down the fairway. Mag 7, Dow, private giants, crypto, Capitol Hill." />
+<meta property="og:description" content="A full round of market briefs — six drops a day, straight down the fairway." />
 <meta property="og:image" content="https://greenfeescapital.com/assets/hero-og.png" />
 <meta property="og:image:alt" content="Green Fees Capital — 18th green hero with market ticker ribbon" />
 <meta property="og:image:width" content="1200" />
@@ -33,14 +32,14 @@
 <meta property="og:url" content="https://greenfeescapital.com/" />
 <meta property="og:locale" content="en_US" />
 
-<!-- ── Twitter / X ───────────────────────────────────────────── -->
+<!-- ── Twitter / X ──────────────────────────────────────────── -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Green Fees Capital ⛳" />
-<meta name="twitter:description" content="A full round of market briefs — six drops a day, straight down the fairway." />
+<meta name="twitter:description" content="Six drops a day, straight down the fairway." />
 <meta name="twitter:image" content="https://greenfeescapital.com/assets/hero-og.png" />
-<meta name="twitter:image:alt" content="Green Fees Capital — 18th green hero with market ticker ribbon" />
+<meta name="twitter:image:alt" content="Green Fees Capital — market briefs" />
 
-<!-- ── JSON-LD ───────────────────────────────────────────────── -->
+<!-- ── Structured data ──────────────────────────────────────── -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -78,39 +77,43 @@
 </script>
 
 <style>
-/* ═══════════════════════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════════════
    GFC DESIGN SYSTEM
-   Edit these variables to restyle the entire site in one place.
-   ═══════════════════════════════════════════════════════════════ */
+   To restyle the site: change a token here.
+   Every element inherits from these variables — one edit,
+   consistent results everywhere, no hunting through the file.
+   ════════════════════════════════════════════════════════════════ */
 :root {
-  /* ── Palette ─────────────────────────────────────────────── */
-  --bg:        #faf8f4;   /* page background                  */
-  --ink:       #1a1a1a;   /* body text                        */
-  --muted:     #6b6b6b;   /* datelines, captions, sources     */
-  --rule:      #e5e0d6;   /* dividers, borders                */
-  --accent:    #c2410c;   /* orange-red — section headers, links */
-  --chip:      #111827;   /* kicker chip background (navy)    */
-  --chip-ink:  #f9fafb;   /* kicker chip text (white)         */
-  --ticker-bg: #eaf3ea;   /* ticker chip background (light green) */
-  --ticker-ink:#1a5c1a;   /* ticker chip text (dark green)    */
-  --ticker-bd: #b8d4b8;   /* ticker chip border               */
-  --joke-bg:   #fff8ea;   /* The Laugh background             */
+  /* ── Colors ── */
+  --bg:         #faf8f4;   /* page background                  */
+  --ink:        #1a1a1a;   /* body text                        */
+  --muted:      #6b6b6b;   /* datelines, captions, sources     */
+  --rule:       #e5e0d6;   /* borders and dividers             */
+  --accent:     #c2410c;   /* section headers, links           */
+  --chip:       #111827;   /* kicker background                */
+  --chip-ink:   #f9fafb;   /* kicker text                      */
+  --ticker-bg:  #ecfdf5;   /* ticker chip background           */
+  --ticker-ink: #166534;   /* ticker chip text                 */
+  --ticker-bd:  #bbf7d0;   /* ticker chip border               */
+  --joke-bg:    #fff8ea;   /* The Laugh background             */
 
-  /* ── Typography ─────────────────────────────────────────── */
+  /* ── Typography ── */
   --font-serif: "Iowan Old Style", "Charter", Georgia, "Times New Roman", serif;
   --font-sans:  ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
   --font-mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  /* ── Sizing ──────────────────────────────────────────────── */
+  /* ── Layout ── */
   --max-width:  720px;
   --pad-x:      24px;
-  --pad-y:      48px;
+  --pad-bottom: 120px;
 }
 
-/* ── Reset ───────────────────────────────────────────────────── */
+/* ── Reset ──────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+
+/* ── Base type ──────────────────────────────────────────────── */
 body {
   font-family: var(--font-serif);
   font-size: 18px;
@@ -125,7 +128,7 @@ a:focus-visible, button:focus-visible {
   border-radius: 3px;
 }
 
-/* ── Skip link ───────────────────────────────────────────────── */
+/* ── Skip link ──────────────────────────────────────────────── */
 .skip-link {
   position: absolute; left: -9999px; top: auto;
   width: 1px; height: 1px; overflow: hidden;
@@ -135,18 +138,19 @@ a:focus-visible, button:focus-visible {
   width: auto; height: auto;
   background: var(--chip); color: var(--chip-ink);
   padding: 8px 14px; border-radius: 4px;
-  font-family: var(--font-sans); font-size: 14px;
-  z-index: 100;
+  font-family: var(--font-sans); font-size: 14px; z-index: 100;
 }
 
-/* ── Layout ──────────────────────────────────────────────────── */
+/* ── Wrapper ────────────────────────────────────────────────── */
 .wrap {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--pad-y) var(--pad-x) 120px;
+  padding: 48px var(--pad-x) var(--pad-bottom);
 }
 
-/* ── Masthead ────────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════════
+   MASTHEAD
+   ════════════════════════════════════════════════════════════════ */
 header.masthead {
   border-bottom: 1px solid var(--rule);
   padding-bottom: 32px;
@@ -163,191 +167,33 @@ header.masthead .hero-img {
   object-fit: cover;
 }
 header.masthead h1 {
-  font-size: clamp(36px, 7vw, 56px);
+  font-size: clamp(32px, 8vw, 56px);
   line-height: 1.05;
   letter-spacing: -0.02em;
-  margin: 0 0 10px;
   font-weight: 800;
+  margin: 0 0 10px;
 }
-header.masthead .tag {
+header.masthead .tagline {
   color: var(--muted);
   font-style: italic;
   font-size: 19px;
   line-height: 1.5;
+  margin: 0 0 20px;
 }
-nav.meta {
-  margin-top: 22px;
-  font-size: 16px;
+nav.schedule {
+  font-size: 15px;
   color: var(--muted);
   font-family: var(--font-sans);
   letter-spacing: 0.02em;
-  line-height: 1.9;
+  line-height: 2.1;
 }
-nav.meta strong { color: var(--ink); }
-nav.meta a { color: var(--accent); text-decoration: none; }
-nav.meta a:hover { text-decoration: underline; }
+nav.schedule strong { color: var(--ink); }
 
-/* ═══════════════════════════════════════════════════════════════
-   ARTICLE — every drop is an <article class="post">
-   ═══════════════════════════════════════════════════════════════ */
-article.post {
-  padding: 28px 0 36px;
-  border-bottom: 1px solid var(--rule);
-  scroll-margin-top: 20px;
-}
-article.post:last-of-type { border-bottom: none; }
-
-/* Kicker chip */
-article.post .kicker {
-  display: inline-block;
-  background: var(--chip);
-  color: var(--chip-ink);
-  padding: 8px 18px;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-family: var(--font-sans);
-  border-radius: 4px;
-  margin-bottom: 16px;
-}
-
-/* Headline */
-article.post h2 {
-  font-size: clamp(24px, 4vw, 32px);
-  line-height: 1.2;
-  margin: 0 0 6px;
-  letter-spacing: -0.01em;
-  font-weight: 800;
-}
-article.post h2 .permalink {
-  opacity: 0;
-  margin-left: 8px;
-  font-weight: 400;
-  font-size: 20px;
-  color: var(--muted);
-  text-decoration: none;
-  transition: opacity 0.15s ease;
-}
-article.post:hover h2 .permalink,
-article.post h2 .permalink:focus { opacity: 0.5; }
-article.post h2 .permalink:hover { opacity: 1; color: var(--accent); }
-
-/* Dateline */
-article.post .dateline {
-  color: var(--muted);
-  font-size: 14px;
-  font-style: italic;
-  margin-bottom: 24px;
-}
-
-/* Section headers */
-article.post h3 {
-  font-size: 12px;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--accent);
-  margin: 32px 0 10px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--rule);
-}
-
-/* ── Body content ────────────────────────────────────────────── */
-/* Paragraphs (used only for The Overnight in 19th Hole) */
-article.post p { margin: 0 0 12px; }
-
-/* Market section lists — line items, no bullets */
-article.post ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 4px;
-}
-article.post ul li {
-  padding: 7px 0;
-  border-bottom: 1px solid rgba(229, 224, 214, 0.6);
-  line-height: 1.6;
-  font-size: 17px;
-}
-article.post ul li:last-child { border-bottom: none; }
-
-/* Fore-Word sports bullets — visible disc, sans-serif, bold */
-article.post ul.sports {
-  list-style: disc;
-  padding-left: 20px;
-}
-article.post ul.sports li {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 16px;
-  border-bottom: none;
-  padding: 4px 0;
-}
-
-/* Ticker chips */
-.ticker {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ticker-ink);
-  background: var(--ticker-bg);
-  border: 1px solid var(--ticker-bd);
-  padding: 1px 6px;
-  border-radius: 3px;
-  letter-spacing: 0.06em;
-  vertical-align: middle;
-  margin: 0 1px;
-  white-space: nowrap;
-}
-
-/* Bold numbers */
-article.post strong { color: var(--ink); font-weight: 700; }
-
-/* The Laugh */
-article.post .joke {
-  background: var(--joke-bg);
-  border-left: 3px solid var(--accent);
-  padding: 10px 16px;
-  font-style: italic;
-  margin: 6px 0 10px;
-  line-height: 1.6;
-  font-size: 17px;
-}
-
-/* Capitol Hill note */
-article.post .ch-note {
-  font-style: italic;
-  font-size: 13px;
-  color: var(--muted);
-  margin: -4px 0 10px;
-}
-
-/* Disclaimer */
-article.post .disclaimer {
-  font-size: 13px;
-  color: var(--muted);
-  font-style: italic;
-  margin-top: 20px;
-  padding-top: 14px;
-  border-top: 1px dashed var(--rule);
-  line-height: 1.5;
-}
-
-/* Sources */
-article.post .sources {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 10px;
-  font-family: var(--font-sans);
-  line-height: 1.8;
-}
-article.post .sources a { color: var(--muted); text-decoration: none; }
-article.post .sources a:hover { color: var(--accent); text-decoration: underline; }
-
-/* ── Monetization slots ──────────────────────────────────────── */
-/* Toggle ads on: remove class "monetize-off" from <body>        */
+/* ════════════════════════════════════════════════════════════════
+   MONETIZATION SLOTS
+   To go live: remove class="monetize-off" from <body>
+   To hide everything: keep class="monetize-off" (default)
+   ════════════════════════════════════════════════════════════════ */
 body.monetize-off .ad-slot,
 body.monetize-off .affiliate-row,
 body.monetize-off .sponsor-strip { display: none !important; }
@@ -390,6 +236,179 @@ body.monetize-off .sponsor-strip { display: none !important; }
   margin-bottom: 6px;
 }
 
+/* ════════════════════════════════════════════════════════════════
+   ARTICLE — THE DROP
+   Locked section order inside every article.post:
+     1.  span.kicker
+     2.  h2 + a.permalink
+     3.  div.dateline
+     4.  h3 "Fore-Word ⛳"  ← ALWAYS FIRST
+     5.  ul.sports          ← sports bullets
+     6.  [market sections]  ← h3 + ul per section
+     7.  h3 "The Laugh"     ← ALWAYS LAST
+     8.  div.joke
+     9.  div.disclaimer
+     10. div.sources
+   ════════════════════════════════════════════════════════════════ */
+article.post {
+  padding: 32px 0 40px;
+  border-bottom: 1px solid var(--rule);
+  scroll-margin-top: 20px;
+}
+article.post:last-of-type { border-bottom: none; }
+
+/* Kicker chip */
+article.post .kicker {
+  display: inline-block;
+  background: var(--chip);
+  color: var(--chip-ink);
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* Headline */
+article.post h2 {
+  font-size: clamp(22px, 4vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+article.post h2 .permalink {
+  opacity: 0;
+  margin-left: 8px;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+article.post:hover h2 .permalink,
+article.post h2 .permalink:focus { opacity: 0.5; }
+article.post h2 .permalink:hover { opacity: 1; color: var(--accent); }
+
+/* Dateline */
+article.post .dateline {
+  color: var(--muted);
+  font-size: 15px;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+
+/* Section headers */
+article.post h3 {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin: 32px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Body paragraphs (used for The Overnight in 19th Hole) */
+article.post p {
+  margin: 0 0 12px;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* Line-item lists — no bullets, clean separator lines */
+article.post ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+article.post ul li {
+  font-size: 17px;
+  line-height: 1.65;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(229, 224, 214, 0.7);
+}
+article.post ul li:last-child { border-bottom: none; }
+
+/* Fore-Word sports list — disc bullets, bold, sans */
+article.post ul.sports {
+  list-style: disc;
+  padding-left: 22px;
+}
+article.post ul.sports li {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: none;
+  padding: 5px 0;
+}
+
+/* Ticker chip */
+article.post .ticker {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ticker-ink);
+  background: var(--ticker-bg);
+  border: 1px solid var(--ticker-bd);
+  border-radius: 3px;
+  padding: 1px 6px;
+  letter-spacing: 0.06em;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
+/* The Laugh */
+article.post .joke {
+  background: var(--joke-bg);
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px;
+  font-style: italic;
+  font-size: 17px;
+  margin: 8px 0 12px;
+  border-radius: 0 4px 4px 0;
+  line-height: 1.6;
+}
+
+/* Capitol Hill subhead */
+article.post .ch-note {
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+  margin: -6px 0 10px;
+}
+
+/* Disclaimer */
+article.post .disclaimer {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--rule);
+  line-height: 1.5;
+}
+
+/* Sources */
+article.post .sources {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 10px;
+  font-family: var(--font-sans);
+  line-height: 1.8;
+}
+article.post .sources a { color: var(--muted); text-decoration: none; }
+article.post .sources a:hover { color: var(--accent); text-decoration: underline; }
+
+/* ════════════════════════════════════════════════════════════════
+   AFFILIATE ROW
+   ════════════════════════════════════════════════════════════════ */
 .affiliate-row {
   margin-top: 40px;
   padding: 18px 16px;
@@ -412,10 +431,13 @@ body.monetize-off .sponsor-strip { display: none !important; }
   display: flex; flex-wrap: wrap;
   gap: 8px 18px;
 }
+.affiliate-row ul li { border-bottom: none; padding: 0; font-size: 13px; }
 .affiliate-row a { color: var(--accent); text-decoration: none; }
 .affiliate-row a:hover { text-decoration: underline; }
 
-/* ── Footer ──────────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════════════════════ */
 footer.site {
   margin-top: 60px;
   padding-top: 24px;
@@ -424,13 +446,17 @@ footer.site {
   color: var(--muted);
   font-family: var(--font-sans);
   text-align: center;
-  line-height: 1.8;
+  line-height: 1.9;
 }
 footer.site a { color: var(--muted); text-decoration: none; margin: 0 4px; }
 footer.site a:hover { color: var(--accent); text-decoration: underline; }
-footer.site .sep { color: var(--rule); }
+footer.site .sep { color: var(--rule); margin: 0 2px; }
 
-/* ── Drop navigation pill (fixed bottom) ────────────────────── */
+/* ════════════════════════════════════════════════════════════════
+   DROP NAVIGATION PILL
+   Fixed bottom center. 44px touch targets. Blur backdrop.
+   Syncs with scroll via IntersectionObserver.
+   ════════════════════════════════════════════════════════════════ */
 .drop-nav {
   position: fixed;
   bottom: 18px;
@@ -439,16 +465,16 @@ footer.site .sep { color: var(--rule); }
   z-index: 50;
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 10px;
-  background: rgba(17, 24, 39, 0.92);
+  background: rgba(17, 24, 39, 0.94);
   color: var(--chip-ink);
   border-radius: 999px;
   font-family: var(--font-sans);
   font-size: 13px;
-  box-shadow: 0 6px 22px rgba(0,0,0,0.18);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.22);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   user-select: none;
 }
 .drop-nav-btn {
@@ -457,46 +483,45 @@ footer.site .sep { color: var(--rule); }
   color: var(--chip-ink);
   font-size: 22px;
   line-height: 1;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  min-width: 44px;   /* thumb-friendly */
+  min-height: 44px;
+  border-radius: 999px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   transition: background 0.15s ease;
-  min-width: 44px; /* thumb-friendly */
-  min-height: 44px;
 }
-.drop-nav-btn:hover:not([disabled]) { background: rgba(255,255,255,0.12); }
+.drop-nav-btn:hover:not([disabled]) { background: rgba(255, 255, 255, 0.1); }
 .drop-nav-btn[disabled] { opacity: 0.3; cursor: default; }
 .drop-nav-indicator {
   min-width: 64px;
   text-align: center;
-  letter-spacing: 0.03em;
-  font-variant-numeric: tabular-nums;
   padding: 0 4px;
+  font-variant-numeric: tabular-nums;
 }
 
-/* ── Responsive ──────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
-  :root { --pad-x: 16px; --pad-y: 32px; }
+  :root { --pad-x: 16px; }
   body { font-size: 17px; }
-  article.post h2 { font-size: 22px; }
-  article.post h3 { font-size: 11px; }
-  .drop-nav { bottom: 12px; font-size: 12px; }
+  header.masthead .tagline { font-size: 17px; }
+  article.post h3 { font-size: 10px; letter-spacing: 0.1em; }
+  .drop-nav { bottom: 12px; }
   .drop-nav-indicator { min-width: 56px; }
 }
 
-/* ── Accessibility: reduced motion ──────────────────────────── */
+/* ════════════════════════════════════════════════════════════════
+   MOTION + PRINT
+   ════════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .drop-nav-btn,
   article.post h2 .permalink { transition: none; }
 }
-
-/* ── Print ───────────────────────────────────────────────────── */
 @media print {
   .sponsor-strip, .ad-slot, .affiliate-row,
   .drop-nav, .skip-link { display: none !important; }
@@ -510,17 +535,18 @@ footer.site .sep { color: var(--rule); }
 </head>
 
 <body class="monetize-off">
+
 <a class="skip-link" href="#main">Skip to briefings</a>
 
 <div class="wrap">
 
-  <!-- ── Sponsor strip (hidden until monetize-off removed) ──── -->
+  <!-- Sponsor strip — hidden until monetize-off removed from body -->
   <div class="sponsor-strip">
     <span class="label">Presented by</span>
     <a href="#">Your sponsor here — reserved slot</a>
   </div>
 
-  <!-- ── Masthead ─────────────────────────────────────────────── -->
+  <!-- Masthead -->
   <header class="masthead">
     <img
       class="hero-img"
@@ -531,39 +557,38 @@ footer.site .sep { color: var(--rule); }
       loading="eager"
     />
     <h1>Green Fees Capital ⛳</h1>
-    <p class="tag">A full round of market briefs — six drops a day, straight down the fairway.</p>
-    <nav class="meta" aria-label="Drop schedule">
-      <strong>6:00 AM</strong> Driving Range &nbsp;·&nbsp;
+    <p class="tagline">A full round of market briefs — six drops a day, straight down the fairway.</p>
+    <nav class="schedule" aria-label="Drop schedule">
+      <strong>6:00 AM</strong> The Driving Range &nbsp;·&nbsp;
       <strong>6:30 AM</strong> Tee Time &nbsp;·&nbsp;
       <strong>7:15 AM</strong> Front 9 &nbsp;·&nbsp;
       <strong>11:30 AM</strong> Back 9 &nbsp;·&nbsp;
-      <strong>1:30 PM</strong> Clubhouse &nbsp;·&nbsp;
+      <strong>1:30 PM</strong> The Clubhouse &nbsp;·&nbsp;
       <strong>9:00 PM</strong> The 19th Hole<br>
-      <em style="font-size:14px;">(PST · weekdays on-course; 19th Hole every day)</em>
+      <small style="color:var(--muted);font-style:italic;">PST · weekdays on-course · 19th Hole every day</small>
     </nav>
   </header>
 
-  <!-- ── Ad slot (hidden until monetize-off removed) ──────────── -->
-  <div class="ad-slot">
+  <!-- Ad slot — hidden until monetize-off removed from body -->
+  <div class="ad-slot" aria-hidden="true">
     <div class="label">Advertisement</div>
     AdSense / Mediavine slot — 728×90 or responsive
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       POSTS — newest first
-       publish-drop.sh prepends new articles after this marker.
-       Keep this comment exactly as-is — the script depends on it.
-       ═══════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════
+       POSTS
+       publish-drop.sh prepends new <article> blocks here.
+       Archive sweep moves articles older than yesterday to
+       /archive/index.html automatically each night.
+       ══════════════════════════════════════════════════════════ -->
   <main id="main">
 
   <!-- POSTS: newest first -->
 
-  <!-- No drops yet today — tasks will publish here automatically -->
-
   </main>
 
-  <!-- ── Affiliate row (hidden until monetize-off removed) ───── -->
-  <div class="affiliate-row">
+  <!-- Affiliate row — hidden until monetize-off removed from body -->
+  <div class="affiliate-row" aria-hidden="true">
     <span class="label">Partner tools</span>
     <ul>
       <li><a href="#" data-affiliate="broker-1">Broker partner #1</a></li>
@@ -575,7 +600,7 @@ footer.site .sep { color: var(--rule); }
   </div>
 
   <footer class="site">
-    Green Fees Capital ⛳ · six drops a day · not investment advice<br>
+    Green Fees Capital ⛳ &nbsp;·&nbsp; six drops a day &nbsp;·&nbsp; not investment advice<br>
     <a href="/archive/">Archive</a>
     <span class="sep">·</span>
     <a href="/sitemap.xml">Sitemap</a>
@@ -587,10 +612,12 @@ footer.site .sep { color: var(--rule); }
 
 </div><!-- /.wrap -->
 
-<!-- ═══════════════════════════════════════════════════════════════
-     DROP NAVIGATION — floating pill, swipe, keyboard, scroll-sync
-     ═══════════════════════════════════════════════════════════════ -->
-<nav class="drop-nav" aria-label="Drop navigation" role="navigation">
+<!-- ════════════════════════════════════════════════════════════════
+     DROP NAVIGATION
+     Swipe left/right, arrow keys, button clicks, scroll sync.
+     No dependencies. All vanilla JS.
+     ════════════════════════════════════════════════════════════════ -->
+<nav class="drop-nav" aria-label="Navigate drops" role="navigation">
   <button class="drop-nav-btn drop-nav-prev" type="button" aria-label="Newer drop">‹</button>
   <span class="drop-nav-indicator" aria-live="polite">Hole 1/1</span>
   <button class="drop-nav-btn drop-nav-next" type="button" aria-label="Earlier drop">›</button>
@@ -600,23 +627,21 @@ footer.site .sep { color: var(--rule); }
 (function () {
   'use strict';
 
-  var articles = document.querySelectorAll('article.post');
+  var articles  = document.querySelectorAll('article.post');
   if (!articles.length) return;
 
-  var current = 0;
+  var current       = 0;
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var indicator = document.querySelector('.drop-nav-indicator');
-  var prevBtn   = document.querySelector('.drop-nav-prev');
-  var nextBtn   = document.querySelector('.drop-nav-next');
+  var indicator     = document.querySelector('.drop-nav-indicator');
+  var prevBtn       = document.querySelector('.drop-nav-prev');
+  var nextBtn       = document.querySelector('.drop-nav-next');
 
-  /* ── Render indicator and button states ── */
   function render() {
     if (indicator) indicator.textContent = 'Hole ' + (current + 1) + '/' + articles.length;
-    if (prevBtn)   prevBtn.disabled  = (current === 0);
-    if (nextBtn)   nextBtn.disabled  = (current === articles.length - 1);
+    if (prevBtn)   prevBtn.disabled = (current === 0);
+    if (nextBtn)   nextBtn.disabled = (current === articles.length - 1);
   }
 
-  /* ── Navigate to index ── */
   function goTo(index) {
     if (index < 0 || index >= articles.length) return;
     current = index;
@@ -624,20 +649,16 @@ footer.site .sep { color: var(--rule); }
       behavior: reducedMotion ? 'auto' : 'smooth',
       block: 'start'
     });
-    if (history.replaceState) {
-      history.replaceState(null, '', '#' + articles[current].id);
-    }
+    if (history.replaceState) history.replaceState(null, '', '#' + articles[current].id);
     render();
   }
 
-  function prev() { goTo(current - 1); } /* newer */
-  function next() { goTo(current + 1); } /* older */
+  function prev() { goTo(current - 1); }
+  function next() { goTo(current + 1); }
 
-  /* ── Button listeners ── */
   if (prevBtn) prevBtn.addEventListener('click', prev);
   if (nextBtn) nextBtn.addEventListener('click', next);
 
-  /* ── Keyboard: ← newer, → older ── */
   document.addEventListener('keydown', function (e) {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.target && e.target.closest && e.target.closest('input,textarea,[contenteditable]')) return;
@@ -645,57 +666,46 @@ footer.site .sep { color: var(--rule); }
     if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
   });
 
-  /* ── Touch swipe (horizontal dominant, preserves vertical scroll) ── */
-  var touchStartX = 0, touchStartY = 0, touchActive = false;
+  var touchStartX = 0, touchStartY = 0, touchLocked = false;
   document.addEventListener('touchstart', function (e) {
-    if (e.touches.length !== 1) { touchActive = false; return; }
+    if (e.touches.length !== 1) { touchLocked = false; return; }
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
-    touchActive = true;
+    touchLocked = true;
   }, { passive: true });
   document.addEventListener('touchend', function (e) {
-    if (!touchActive) return;
-    touchActive = false;
+    if (!touchLocked) return;
+    touchLocked = false;
     var dx = e.changedTouches[0].clientX - touchStartX;
     var dy = e.changedTouches[0].clientY - touchStartY;
-    if (Math.abs(dx) < 60) return;                  /* too short */
-    if (Math.abs(dx) < Math.abs(dy) * 1.2) return;  /* mostly vertical */
+    if (Math.abs(dx) < 60) return;
+    if (Math.abs(dx) < Math.abs(dy) * 1.2) return;
     if (dx > 0) prev(); else next();
   }, { passive: true });
 
-  /* ── IntersectionObserver: keep indicator in sync while scrolling ── */
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
-      var topEntry = null;
+      var best = null;
       entries.forEach(function (entry) {
         if (!entry.isIntersecting || entry.intersectionRatio < 0.4) return;
-        if (!topEntry || entry.boundingClientRect.top < topEntry.boundingClientRect.top) {
-          topEntry = entry;
-        }
+        if (!best || entry.boundingClientRect.top < best.boundingClientRect.top) best = entry;
       });
-      if (!topEntry) return;
-      var idx = Array.prototype.indexOf.call(articles, topEntry.target);
+      if (!best) return;
+      var idx = Array.prototype.indexOf.call(articles, best.target);
       if (idx !== -1 && idx !== current) {
         current = idx;
-        if (history.replaceState) {
-          history.replaceState(null, '', '#' + articles[current].id);
-        }
+        if (history.replaceState) history.replaceState(null, '', '#' + articles[current].id);
         render();
       }
     }, { threshold: [0.4, 0.6] });
     articles.forEach(function (a) { io.observe(a); });
   }
 
-  /* ── Honor URL hash on first load ── */
   var hash = window.location.hash ? window.location.hash.slice(1) : '';
-  if (hash) {
-    articles.forEach(function (a, i) {
-      if (a.id === hash) current = i;
-    });
-  }
+  if (hash) articles.forEach(function (a, i) { if (a.id === hash) current = i; });
 
   render();
-})();
+}());
 </script>
 
 </body>
